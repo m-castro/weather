@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hourlyTitle"
+            android:text="Hourly"
+            android:layout_centerHorizontal="true"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hourlyTime"
+            android:text="Time"
+            android:layout_below="@id/hourlyTitle"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hourlyTemp"
+            android:text="Temp"
+            android:layout_toRightOf="@id/hourlyTime"
+            android:layout_below="@id/hourlyTitle"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/hourlyPrecip"
+            android:text="Precipitation"
+            android:layout_toRightOf="@id/hourlyTemp"
+            android:layout_below="@id/hourlyTitle"/>
+
+</RelativeLayout>

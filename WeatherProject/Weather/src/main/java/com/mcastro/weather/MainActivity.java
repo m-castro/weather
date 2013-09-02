@@ -1,54 +1,64 @@
 package com.mcastro.weather;
 
-import android.content.Context;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Bundle;
+
+
+//The main activity that we will be using to display weather data
+
 import android.app.Activity;
-import android.util.Log;
+import android.location.Location;
+import android.os.Bundle;
 import android.view.Menu;
 
 public class MainActivity extends Activity {
+
+    public UserLocationManager mMyPersonalLocationManager;
+    public PopulateAWeatherDataObject myWeatherDataPopulator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        Log.i("Location Coordinates", "Latitude: 30.2715, Longitude: -97.7417");
-
-//        Acquire a reference to the system Location Manager
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
-//        Define a listener that responds to location updates
-        LocationListener locationListener = new LocationListener () {
-            public void onLocationChanged(Location location) {
-//                Called when a new location is found by the network location provider
-//                location.getLatitude - convert it from double to String, then put String into Log
-                double myLatitude = location.getLatitude();
-                double myLongitude = location.getLongitude();
-                String myLatString = String.valueOf(myLatitude);
-                String myLongString = String.valueOf(myLongitude);
-                Log.i("Latitude", myLatString);
-                Log.i("Longitude", myLongString);
-
-            }
-
-
-            public void onStatusChanged(String provider, int status, Bundle extras){}
-
-            public void onProviderEnabled(String provider){}
-
-            public void onProviderDisabled(String provider){}
-        };
-        
-
-//Register the listener with the Location Manager to receive location updates
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+        goGetUserLocation();
 
     }
 
+    private void updateDisplay(){
+        //check to see if we have some weather data, and
+        //update the screen to reflect that new data
+    }
+
+    //
+    //  The following two methods are used to start other asynchronous
+    // processes outside of this activity.
+    //
+
+    public void goGetWeatherData(Location location){
+        //this method could also take two double parameters for lat and
+        //long depending on how you want to move the data around.
+        myWeatherDataPopulator = new PopulateAWeatherDataObject(this);
+        myWeatherDataPopulator.execute(location);
+    }
+
+    public void goGetUserLocation(){
+        mMyPersonalLocationManager = new UserLocationManager(this);
+
+    }
+
+    //
+    //  The two methods below receive data into the class
+    //
+
+    public void receiveUserLocation(){
+        // In this method I'm receiving the user location
+        // I need to call a method that takes that location and  makes a request
+        // to the Forecast API.
+    }
+
+    public void receiveWeatherData(){
+        //I got weather data, now do something with it
+        updateDisplay();  //update the display to show the new info
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -56,5 +66,5 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
+
 }
