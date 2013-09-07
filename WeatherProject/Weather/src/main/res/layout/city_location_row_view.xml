@@ -13,7 +13,7 @@
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="cityOptions"
+            android:id="@+id/cityOptions"
             android:text="City"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/citySelectorOption"/>

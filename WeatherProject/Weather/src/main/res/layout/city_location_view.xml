@@ -12,7 +12,7 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="cityLocationTitle"
+            android:id="@+id/cityLocationTitle"
             android:text="City Location"/>
 
     </LinearLayout>
@@ -25,7 +25,7 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="currentCity"
+            android:id="@+id/currentCity"
             android:text="Current Location"/>
 
     </LinearLayout>
@@ -38,7 +38,7 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="addCity"
+            android:id="@+id/addCity"
             android:text="Add Location     + "/>
 
 

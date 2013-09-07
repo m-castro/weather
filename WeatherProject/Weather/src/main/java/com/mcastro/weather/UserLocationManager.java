@@ -5,35 +5,52 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 
 /**
- * Created by Manny on 8/30/13.
+ * Created by spawrks on 8/30/13.
  */
-//added this java file at the end of the day in class on Friday, 8/30/13
+
+//  This class wraps all the code we will use to manage getting updates on the location
 
 public class UserLocationManager implements LocationListener{
 
-    private MainActivity myFriendDisplayWeatherActivity;
+    private PopulateDataTask myFriendPopulateDataTask;
+    public LocationManager lm;
 
-    public UserLocationManager (MainActivity a){
-//        Set up getting the user location information, however that may be needed.
-        myFriendDisplayWeatherActivity = a;
+//    What we want to do: send UserLocation info to PopulateDataTask class
 
-        LocationManager locationManager = (LocationManager) myFriendDisplayWeatherActivity.getSystemService(Context.LOCATION_SERVICE);
+//  Step 4
+    public UserLocationManager (PopulateDataTask x){
+        super();
+        Log.e("Look", "Step 3 works");
+        myFriendPopulateDataTask = x;
+        //Setup getting the user location information, however that might be needed.
+//        LocationManager lm = (LocationManager) myFriendPopulateDataTask.myFriendDisplayWeatherActivity.getSystemService(Context.LOCATION_SERVICE);
+        lm = (LocationManager) myFriendPopulateDataTask.myFriendDisplayWeatherActivity.getSystemService(Context.LOCATION_SERVICE);
+// need try/catch block
+//        request location data update
+//        (LocationManager.GPS_Provider,0,0,this)
+        try{
 
-        try {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-//            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, weatherListener);
-        } catch (Exception e) {
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
+
+        }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
+//    Step 5
     @Override
     public void onLocationChanged(Location location) {
-//        I'll be told the location here
-        myFriendDisplayWeatherActivity.receiveUserLocation();
+        Log.e("Look", "Step 4 works");
+        //I'll be told the location here.
+//        myFriendDisplayWeatherActivity.receiveUserLocation();
+        lm.removeUpdates(this);
+        lm = null;
+        myFriendPopulateDataTask.receiveUserLocation(location);
+//        After the location code is written, the method above needs to take the parameters of the new location.
     }
 
     @Override
@@ -50,4 +67,6 @@ public class UserLocationManager implements LocationListener{
     public void onProviderDisabled(String s) {
 
     }
+
+
 }
