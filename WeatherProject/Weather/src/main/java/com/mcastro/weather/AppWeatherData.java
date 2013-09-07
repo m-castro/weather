@@ -27,6 +27,10 @@ public class AppWeatherData {
         return mCurrentPrecipPercent;
     }
 
+    public String getmCurrentPrecipPercentString(){
+        return mCurrentPrecipPercent.toString();
+    }
+
     public void setmCurrentPrecipPercent(Double mCurrentPrecipPercent) {
         this.mCurrentPrecipPercent = mCurrentPrecipPercent;
     }

@@ -72,8 +72,11 @@ public class DisplayWeatherActivity extends Activity {
           Log.e("look", "Step 8 works");
 //          updateDisplay();
 
-          TextView textview = (TextView) findViewById(R.id.currentTemp);
+          TextView textview = (TextView) findViewById(R.id.currentTempFromJSON);
           textview.setText(myData.getmCurrentTempString());
+
+          TextView textViewPrecip = (TextView) findViewById(R.id.percentPrecipFromJSON);
+          textViewPrecip.setText(myData.getmCurrentPrecipPercentString());
 
 //    public void receiveWeatherData(AppWeatherData myDataObject){
 //    public void receiveWeatherData(){
