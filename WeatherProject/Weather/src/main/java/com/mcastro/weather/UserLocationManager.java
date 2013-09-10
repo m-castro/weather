@@ -48,7 +48,9 @@ public class UserLocationManager implements LocationListener{
         //I'll be told the location here.
 //        myFriendDisplayWeatherActivity.receiveUserLocation();
         lm.removeUpdates(this);
-        lm = null;
+//        lm = null; - 9/9/13: commenting out this line; Victor said it is not needed to set lm to
+//        zero since the line above is already removing the location update.
+
         myFriendPopulateDataTask.receiveUserLocation(location);
 //        After the location code is written, the method above needs to take the parameters of the new location.
     }

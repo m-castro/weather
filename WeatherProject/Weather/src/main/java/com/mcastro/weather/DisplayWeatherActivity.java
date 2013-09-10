@@ -49,7 +49,7 @@ public class DisplayWeatherActivity extends Activity {
 
 //    Step 1
     public void goGetWeatherData(){
-        Log.e("now", "goGetWeather runs");
+        Log.e("Look", "Step 1 works");
         myFriendPopulateDataTask = new PopulateDataTask(this);
 
     }
@@ -67,16 +67,24 @@ public class DisplayWeatherActivity extends Activity {
 //    Data type = AppWeatherDate; name can be whatever, but make sure it matches the name when it is called,
 //    for example, like it is in log below.
 
+//    9/8/13: trying to figure out how to get date/time data from JSON
+//      public Date (long date){
+//          System.currentTimeMillis()
+//      }
+
 //    Step 8
       public void receiveWeatherData(AppWeatherData myData){
           Log.e("look", "Step 8 works");
 //          updateDisplay();
 
           TextView textview = (TextView) findViewById(R.id.currentTempFromJSON);
-          textview.setText(myData.getmCurrentTempString());
+          textview.setText(myData.getmCurrentTempString() + (char) 0x00B0 + "F");
 
           TextView textViewPrecip = (TextView) findViewById(R.id.percentPrecipFromJSON);
-          textViewPrecip.setText(myData.getmCurrentPrecipPercentString());
+          textViewPrecip.setText(myData.getmCurrentPrecipPercentString()+"%");
+
+//          TextView textViewTime = (TextView) findViewById(R.id.updatedDateTime);
+//          textViewTime.setText(myData.getmRefreshTimeString());
 
 //    public void receiveWeatherData(AppWeatherData myDataObject){
 //    public void receiveWeatherData(){

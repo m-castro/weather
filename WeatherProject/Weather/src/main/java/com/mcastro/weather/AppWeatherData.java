@@ -6,10 +6,25 @@ package com.mcastro.weather;
 public class AppWeatherData {
     private Double mCurrentTemp;
     private Double mCurrentPrecipPercent;
+    private Double mDailyHigh;
+    private Double mDailyLow;
     private Double[] mHourlyTemp;
     private Double[] mHourlyPrecipPercent;
     private Double mHighTemp;
     private Double mLowTemp;
+    private Long mRefreshTime;
+
+    public Long getmRefreshTime() {
+        return mRefreshTime;
+    }
+
+    public String getmRefreshTimeString(){
+        return mRefreshTime.toString();
+    }
+
+    public void setmRefreshTime(Long mRefreshTime) {
+        this.mRefreshTime = mRefreshTime;
+    }
 
     public Double getmCurrentTemp() {
         return mCurrentTemp;
@@ -33,6 +48,22 @@ public class AppWeatherData {
 
     public void setmCurrentPrecipPercent(Double mCurrentPrecipPercent) {
         this.mCurrentPrecipPercent = mCurrentPrecipPercent;
+    }
+
+    public Double getmDailyHigh() {
+        return mDailyHigh;
+    }
+
+    public void setmDailyHigh(Double mDailyHigh) {
+        this.mDailyHigh = mDailyHigh;
+    }
+
+    public Double getmDailyLow() {
+        return mDailyLow;
+    }
+
+    public void setmDailyLow(Double mDailyLow) {
+        this.mDailyLow = mDailyLow;
     }
 
     public Double[] getmHourlyTemp() {

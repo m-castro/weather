@@ -34,6 +34,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/currentTempFromJSON"
             android:text="Temp"
+            android:textSize="16dp"
+            android:textColor="#0000ff"
             android:layout_below="@id/cityName"/>
 
 
@@ -49,6 +51,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/percentPrecipFromJSON"
             android:text="% precip"
+            android:textSize="16dp"
+            android:textColor="#0000ff"
             android:layout_below="@id/cityName"
             android:layout_alignParentRight="true"/>
 
