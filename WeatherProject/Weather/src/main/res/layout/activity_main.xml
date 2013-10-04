@@ -16,14 +16,14 @@
             android:gravity="center"
             android:id="@+id/updatedDateTime"
             android:text="Updated: Date and Time"
-            android:textSize="10sp"/>
+            android:textSize="10dp"/>
 
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textSize="24sp"
+            android:textSize="24dp"
             android:id="@+id/cityName"
             android:text="City"
             android:layout_below="@id/updatedDateTime"/>
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/currentTempFromJSON"
             android:text="Temp"
-            android:textSize="16dp"
+            android:textSize="20dp"
             android:textColor="#0000ff"
             android:layout_below="@id/cityName"/>
 
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/percentPrecipFromJSON"
             android:text="% precip"
-            android:textSize="16dp"
+            android:textSize="20dp"
             android:textColor="#0000ff"
             android:layout_below="@id/cityName"
             android:layout_alignParentRight="true"/>
@@ -60,14 +60,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/percentPrecip"
-            android:text="% rain/snow"
+            android:text="% Rain/Snow"
             android:layout_below="@id/percentPrecipFromJSON"
             android:layout_alignParentRight="true"/>
 
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:id="@+id/highTemp"
             android:layout_below="@id/currentTemp"
             android:layout_alignParentRight="true"
@@ -77,7 +77,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="18dp"
             android:id="@+id/lowTemp"
             android:layout_below="@id/currentTemp"
             android:layout_toLeftOf="@id/highTemp"
@@ -85,11 +85,176 @@
             android:text="L"/>
 
 
-    <ListView
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/lowTemp"
+        android:layout_alignRight="@+id/highTemp">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="361dp"
-            android:id="@+id/fiveDayListView"
-            android:layout_below="@id/lowTemp"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#FFD700">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/firstDayWeekly"
+                android:layout_weight="1"
+                android:text="Day 1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/firstDayLow"
+                android:layout_weight="1"
+                android:text="L"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/firstDayHigh"
+                android:layout_weight="1"
+                android:text="H"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#00ffff">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/secondDayWeekly"
+                android:layout_weight="1"
+                android:text="Day 2"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/secondDayLow"
+                android:layout_weight="1"
+                android:text="L"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/secondDayHigh"
+                android:layout_weight="1"
+                android:text="H"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#FFD700">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/thirdDayWeekly"
+                android:layout_weight="1"
+                android:text="Day 3"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/thirdDayLow"
+                android:layout_weight="1"
+                android:text="L"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/thirdDayHigh"
+                android:layout_weight="1"
+                android:text="H"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#00ffff">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/fourthDayWeekly"
+                android:layout_weight="1"
+                android:text="Day 4"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/fourthDayLow"
+                android:layout_weight="1"
+                android:text="L"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/fourthDayHigh"
+                android:layout_weight="1"
+                android:text="H"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#FFD700">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/fifthDayWeekly"
+                android:layout_weight="1"
+                android:text="Day 5"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/fifthDayLow"
+                android:layout_weight="1"
+                android:text="L"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:id="@+id/fifthDayHigh"
+                android:layout_weight="1"
+                android:text="H"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 
     <TextView
@@ -101,6 +266,7 @@
             android:text="Tap Here for Detailed Hourly View"
             android:layout_gravity="center"
             android:layout_alignParentBottom="true"/>
+
 
 
 </RelativeLayout>

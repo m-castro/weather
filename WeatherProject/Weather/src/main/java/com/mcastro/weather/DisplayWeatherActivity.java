@@ -2,6 +2,7 @@ package com.mcastro.weather;
 
 import android.app.Activity;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -22,6 +23,7 @@ public class DisplayWeatherActivity extends Activity {
         Log.e("look","it runs");
         goGetWeatherData();
     }
+
 
 //    private void updateDisplay(){
 ////        check to see if we have some weather data, and
@@ -46,6 +48,9 @@ public class DisplayWeatherActivity extends Activity {
 //        mMyPersonalLocationManager = new UserLocationManager(this);
 //
 //    }
+
+//    9/13/13: would like to get the location from the GeoNames API here and display the data
+//    public class GeoLocation extends AsyncTask<>
 
 //    Step 1
     public void goGetWeatherData(){
@@ -82,6 +87,15 @@ public class DisplayWeatherActivity extends Activity {
 
           TextView textViewPrecip = (TextView) findViewById(R.id.percentPrecipFromJSON);
           textViewPrecip.setText(myData.getmCurrentPrecipPercentString()+"%");
+
+          TextView textViewUpdatedTimeDisplay = (TextView) findViewById(R.id.updatedDateTime);
+          textViewUpdatedTimeDisplay.setText(myData.getmRefreshTime());
+
+          TextView textviewFirstDayofWeek = (TextView) findViewById(R.id.firstDayWeekly);
+//          textviewFirstDayofWeek.setText(myData.getmDailyHighTemp());
+
+
+
 
 //          TextView textViewTime = (TextView) findViewById(R.id.updatedDateTime);
 //          textViewTime.setText(myData.getmRefreshTimeString());

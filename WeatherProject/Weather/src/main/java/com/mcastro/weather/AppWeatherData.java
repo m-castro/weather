@@ -1,5 +1,8 @@
 package com.mcastro.weather;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * Created by Manny on 9/3/13.
  */
@@ -10,11 +13,12 @@ public class AppWeatherData {
     private Double mDailyLow;
     private Double[] mHourlyTemp;
     private Double[] mHourlyPrecipPercent;
-    private Double mHighTemp;
-    private Double mLowTemp;
-    private Long mRefreshTime;
+    private Double[] mDailyHighTemp;
+    private Double[] mDailyLowTemp;
+    private Long[] mDayOfTheWeek;
+    private String mRefreshTime;
 
-    public Long getmRefreshTime() {
+    public String getmRefreshTime() {
         return mRefreshTime;
     }
 
@@ -22,7 +26,7 @@ public class AppWeatherData {
         return mRefreshTime.toString();
     }
 
-    public void setmRefreshTime(Long mRefreshTime) {
+    public void setmRefreshTime(String mRefreshTime) {
         this.mRefreshTime = mRefreshTime;
     }
 
@@ -31,7 +35,7 @@ public class AppWeatherData {
     }
 
     public String getmCurrentTempString(){
-        return mCurrentTemp.toString();
+        return String.valueOf(BigDecimal.valueOf(mCurrentTemp).setScale(0, RoundingMode.HALF_UP));
     }
 
     public void setmCurrentTemp(Double mCurrentTemp) {
@@ -43,7 +47,7 @@ public class AppWeatherData {
     }
 
     public String getmCurrentPrecipPercentString(){
-        return mCurrentPrecipPercent.toString();
+        return String.valueOf(BigDecimal.valueOf(mCurrentPrecipPercent).setScale(0, RoundingMode.HALF_UP));
     }
 
     public void setmCurrentPrecipPercent(Double mCurrentPrecipPercent) {
@@ -82,19 +86,33 @@ public class AppWeatherData {
         this.mHourlyPrecipPercent = mHourlyPrecipPercent;
     }
 
-    public Double getmHighTemp() {
-        return mHighTemp;
+    public Double[] getmDailyHighTemp() {
+        return mDailyHighTemp;
     }
 
-    public void setmHighTemp(Double mHighTemp) {
-        this.mHighTemp = mHighTemp;
+    public void setmDailyHighTemp(Double[] mDailyHighTemp) {
+        this.mDailyHighTemp = mDailyHighTemp;
     }
 
-    public Double getmLowTemp() {
-        return mLowTemp;
+    public String getmDailyHighTempString() {
+        return mDailyHighTemp.toString();
     }
 
-    public void setmLowTemp(Double mLowTemp) {
-        this.mLowTemp = mLowTemp;
+
+
+    public Double[] getmDailyLowTemp() {
+        return mDailyLowTemp;
+    }
+
+    public void setmDailyLowTemp(Double[] mDailyLowTemp) {
+        this.mDailyLowTemp = mDailyLowTemp;
+    }
+
+    public Long[] getmDayOfTheWeek() {
+        return mDayOfTheWeek;
+    }
+
+    public void setmDayOfTheWeek(Long[] mDayOfTheWeek) {
+        this.mDayOfTheWeek = mDayOfTheWeek;
     }
 }

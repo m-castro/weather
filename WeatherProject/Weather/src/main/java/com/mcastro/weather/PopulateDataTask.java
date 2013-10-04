@@ -14,6 +14,12 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -69,8 +75,7 @@ public class PopulateDataTask extends AsyncTask<ForecastAPIRequestObject, Intege
                 JSONObject rootJSON = new JSONObject(responseString);
                 JSONObject currentlyJSON = rootJSON.getJSONObject("currently");
 
-//                9/9/13: Trying to figure out how to get data from second-level JSON object/array:
-//                Need hourly temp and hour precip %
+////            9/9/13: Getting hourly temp and hourly precip %
                 JSONObject hourlyJSON = rootJSON.getJSONObject("hourly");
                 JSONArray hourlyJSONdata = hourlyJSON.getJSONArray("data");
 
@@ -82,19 +87,59 @@ public class PopulateDataTask extends AsyncTask<ForecastAPIRequestObject, Intege
                     JSONObject name = hourlyJSONdata.getJSONObject(i);
                     hourlyHashMap.put(value, name);
                     Double HourlyTemperature = name.getDouble("temperature");
-                    Log.e("PopulateDataTask temp", HourlyTemperature.toString());
+//                    Rounding of temperature to nearest degree (no decimals)
+                    Log.e("PopulateDataTask rounding of hourly temp", String.valueOf(BigDecimal.valueOf(HourlyTemperature).setScale(0, RoundingMode.HALF_UP)));
+                    Log.e("PopulateDataTask hourly temp", HourlyTemperature.toString());
                 }
-//              9/9/13: End of hourly hashmap
+////            9/9/13: End of hourly hashmap
+
+//              9/13/13: Trying to use a daily hashmap to pull daily data
+                Log.e("look", rootJSON.toString());
+                JSONObject dailyJSON = rootJSON.getJSONObject("daily");
+                Log.e("look", dailyJSON.toString());
+                JSONArray dailyJSONdata = dailyJSON.getJSONArray("data");
+                Log.e("look", dailyJSONdata.toString());
+
+//              9/9/13: Using a daily hashmap to pull daily data
+                HashMap<Long, JSONObject> dailyHashMap = new HashMap<Long, JSONObject>();
+
+                Long[] dailyWeekday = new Long[5];
+                Double[] dailyTemperatureMin = new Double[5];
+                Double[] dailyTemperatureMax = new Double[5];
+
+                for (int d = 0; d < 5; d++){
+                    Long dailyValue = dailyJSONdata.getJSONObject(d).getLong("time");
+                    JSONObject dailyName = dailyJSONdata.getJSONObject(d);
+                    dailyHashMap.put(dailyValue, dailyName);
+                    Log.e("look", "getting the hashmap daily data");
+                    dailyWeekday[d] = dailyName.getLong("time");
+                    Date dailyDate = new Date(dailyWeekday[d] * 1000);
+                    DateFormat dailyMainDisplayTwo = new SimpleDateFormat("E");
+                    Log.e("PopulateDataTask Day of the Week", dailyMainDisplayTwo.format(dailyDate));
+//                    Log.e("PopulateDataTask Day of the Week", dailyMainDisplayTwo.format(dailyWeekday[d]));
+//                    Log.e("PopulateDataTask current day", dailyWeekday.toString());
+//                    Log.e("PopulateDataTask current day", String.valueOf(dailyWeekday));
+//                    Log.e("PopulateDataTask current day", String.valueOf(dailyWeekday[d]));
+//                    Log.e("PopulateDataTask current day", dailyWeekday[d].toString());
+                    dailyTemperatureMin[d] = dailyName.getDouble("temperatureMin");
+//                    DecimalFormat decFormat = new DecimalFormat("#");
+                    String dailyMinTempDisplay = String.valueOf(BigDecimal.valueOf(dailyTemperatureMin[d]).setScale(0, RoundingMode.HALF_UP));
+//                    Log.e("PopulateDataTask daily min temp", dailyTemperatureMin.toString());
+//                    Log.e("daily min temp", String.valueOf(dailyTemperatureMin));
+                    Log.e("check out daily min temp", dailyMinTempDisplay);
+                    dailyTemperatureMax[d] = dailyName.getDouble("temperatureMax");
+                    String dailyMaxTempDisplay = String.valueOf(BigDecimal.valueOf(dailyTemperatureMax[d]).setScale(0, RoundingMode.HALF_UP));
+                    Log.e("check out daily max temp", dailyMaxTempDisplay);
+//                    Log.e("PopulateDataTask daily max temp", dailyTemperatureMax.toString());
+                }
+//              9/9/13: End of daily hashmap
 
 //              9/9/13: Start parsing JSON data for daily weather info that will go on Main Activity
 //                      (DisplayWeatherActivity.java)
-                JSONObject dailyJSON = rootJSON.getJSONObject("daily");
-                JSONArray dailyJSONData = dailyJSON.getJSONArray("data");
-
-
+//                JSONObject dailyJSON = rootJSON.getJSONObject("daily");
+//                JSONArray dailyJSONData = dailyJSON.getJSONArray("data");
 
 //                JSONObject hourlyJSONTemp = hourlyJSONdata.getJSONObject("temperature");
-
 
 //                The next 4 lines are the long way to code what is coded below
 //                Double currentTemp = currentlyJSON.getDouble("temperature");
@@ -104,6 +149,38 @@ public class PopulateDataTask extends AsyncTask<ForecastAPIRequestObject, Intege
 
                 myData.setmCurrentTemp(currentlyJSON.getDouble("temperature"));
                 myData.setmCurrentPrecipPercent(currentlyJSON.getDouble("precipProbability"));
+
+//              9/13/13: Daily data
+                myData.setmDayOfTheWeek(dailyWeekday);
+                myData.setmDailyLowTemp(dailyTemperatureMin);
+                myData.setmDailyHighTemp(dailyTemperatureMax);
+
+//              9/10/13: Getting the time/date updated data and send it to the main activity to display
+//                Date epochDate = new Date(currentlyJSON.getLong("time"));
+                Long epochLongDate = new Long(currentlyJSON.getLong("time"));
+//                Log.e("Look", (epochDate.toString()));
+//                Log.e("Look (epochLongDate.toString())", (epochLongDate.toString()));
+                Date updatedDate = new Date(epochLongDate * 1000);
+                DateFormat df = new SimpleDateFormat("MM/dd/yy");
+//                Log.e("Hey df.format(updatedDate)", df.format(updatedDate));
+                DateFormat hourMainDisplay = new SimpleDateFormat("HH:MM a");
+//                Log.e("Hey hourMainDisplay.format(updatedDate)", hourMainDisplay.format(updatedDate));
+                String timeString = "Last updated: " + df.format(updatedDate) + " at " + hourMainDisplay.format(updatedDate);
+                myData.setmRefreshTime(timeString);
+                Log.e("Look timeString", timeString);
+
+
+//                9/13/13: Getting the daily weather data
+//                DateFormat dailyMainDisplay = new SimpleDateFormat("E");
+//                Log.e("PopulateDataTask Day of the Week", dailyMainDisplay.format(updatedDate));
+
+
+//                long date=System.currentTimeMillis(); //current android time in epoch
+////Converts epoch to "dd/MM/yyyy HH:mm:ss" dateformat
+//                String NormalDate = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new java.util.Date(date));
+
+
+//                myData.setmRefreshTime(currentlyJSON.getLong("time"));
 //                myData.setmRefreshTime(currentlyJSON.getLong("time"));
 //                hourlyHashMap.put(hourlyJSONdata.getLong("time"), "temperature");
 //                hourlyHashMap.put(time, "temperature");
