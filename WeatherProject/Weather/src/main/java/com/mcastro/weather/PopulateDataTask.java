@@ -32,7 +32,6 @@ public class PopulateDataTask extends AsyncTask<ForecastAPIRequestObject, Intege
 
 //    Step 2 and 3
     public PopulateDataTask(DisplayWeatherActivity act) {
-//        this is the constructor
         super();
         Log.e("Look", "Step 2 works");
         myFriendDisplayWeatherActivity = act;
@@ -43,15 +42,12 @@ public class PopulateDataTask extends AsyncTask<ForecastAPIRequestObject, Intege
     public void receiveUserLocation(Location loc) {
         Log.e("Look","Step 5 works");
         ForecastAPIRequestObject thisAPIRequest = new ForecastAPIRequestObject(loc);
-//        Tom does not have the line below in his code.
-//        thisAPIRequest.setMyLocation(loc);
+        thisAPIRequest.setMyLocation(loc);
         this.execute(thisAPIRequest);
         Log.e("Look", "Step 6 works");
     }
 
-
-
-//somewhere in doInBackground, we will
+//somewhere in doInBackground, we will...
     @Override
     protected AppWeatherData doInBackground(ForecastAPIRequestObject... forecastAPIRequestObjects) {
 //        get the information that we need from the API
@@ -115,22 +111,19 @@ public class PopulateDataTask extends AsyncTask<ForecastAPIRequestObject, Intege
                     dailyWeekday[d] = dailyName.getLong("time");
                     Date dailyDate = new Date(dailyWeekday[d] * 1000);
                     DateFormat dailyMainDisplayTwo = new SimpleDateFormat("E");
+                    String weatherDay = dailyMainDisplayTwo.format(dailyDate);
                     Log.e("PopulateDataTask Day of the Week", dailyMainDisplayTwo.format(dailyDate));
-//                    Log.e("PopulateDataTask Day of the Week", dailyMainDisplayTwo.format(dailyWeekday[d]));
-//                    Log.e("PopulateDataTask current day", dailyWeekday.toString());
-//                    Log.e("PopulateDataTask current day", String.valueOf(dailyWeekday));
-//                    Log.e("PopulateDataTask current day", String.valueOf(dailyWeekday[d]));
-//                    Log.e("PopulateDataTask current day", dailyWeekday[d].toString());
+                    Log.e("Shorten to", weatherDay);
+                    myData.setmDayOfTheWeek(weatherDay);
                     dailyTemperatureMin[d] = dailyName.getDouble("temperatureMin");
-//                    DecimalFormat decFormat = new DecimalFormat("#");
                     String dailyMinTempDisplay = String.valueOf(BigDecimal.valueOf(dailyTemperatureMin[d]).setScale(0, RoundingMode.HALF_UP));
-//                    Log.e("PopulateDataTask daily min temp", dailyTemperatureMin.toString());
-//                    Log.e("daily min temp", String.valueOf(dailyTemperatureMin));
                     Log.e("check out daily min temp", dailyMinTempDisplay);
+                    myData.setmDailyLoTemp(dailyMinTempDisplay);
                     dailyTemperatureMax[d] = dailyName.getDouble("temperatureMax");
                     String dailyMaxTempDisplay = String.valueOf(BigDecimal.valueOf(dailyTemperatureMax[d]).setScale(0, RoundingMode.HALF_UP));
                     Log.e("check out daily max temp", dailyMaxTempDisplay);
-//                    Log.e("PopulateDataTask daily max temp", dailyTemperatureMax.toString());
+                    myData.setmDailyHiTemp(dailyMaxTempDisplay);
+
                 }
 //              9/9/13: End of daily hashmap
 
@@ -151,41 +144,30 @@ public class PopulateDataTask extends AsyncTask<ForecastAPIRequestObject, Intege
                 myData.setmCurrentPrecipPercent(currentlyJSON.getDouble("precipProbability"));
 
 //              9/13/13: Daily data
-                myData.setmDayOfTheWeek(dailyWeekday);
+//                myData.setmDayOfTheWeek(dailyWeekday);
                 myData.setmDailyLowTemp(dailyTemperatureMin);
                 myData.setmDailyHighTemp(dailyTemperatureMax);
 
 //              9/10/13: Getting the time/date updated data and send it to the main activity to display
-//                Date epochDate = new Date(currentlyJSON.getLong("time"));
                 Long epochLongDate = new Long(currentlyJSON.getLong("time"));
-//                Log.e("Look", (epochDate.toString()));
-//                Log.e("Look (epochLongDate.toString())", (epochLongDate.toString()));
                 Date updatedDate = new Date(epochLongDate * 1000);
                 DateFormat df = new SimpleDateFormat("MM/dd/yy");
-//                Log.e("Hey df.format(updatedDate)", df.format(updatedDate));
                 DateFormat hourMainDisplay = new SimpleDateFormat("HH:MM a");
-//                Log.e("Hey hourMainDisplay.format(updatedDate)", hourMainDisplay.format(updatedDate));
                 String timeString = "Last updated: " + df.format(updatedDate) + " at " + hourMainDisplay.format(updatedDate);
                 myData.setmRefreshTime(timeString);
                 Log.e("Look timeString", timeString);
-
 
 //                9/13/13: Getting the daily weather data
 //                DateFormat dailyMainDisplay = new SimpleDateFormat("E");
 //                Log.e("PopulateDataTask Day of the Week", dailyMainDisplay.format(updatedDate));
 
-
 //                long date=System.currentTimeMillis(); //current android time in epoch
 ////Converts epoch to "dd/MM/yyyy HH:mm:ss" dateformat
 //                String NormalDate = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new java.util.Date(date));
 
-
-//                myData.setmRefreshTime(currentlyJSON.getLong("time"));
 //                myData.setmRefreshTime(currentlyJSON.getLong("time"));
 //                hourlyHashMap.put(hourlyJSONdata.getLong("time"), "temperature");
 //                hourlyHashMap.put(time, "temperature");
-
-
 
             } else {
                 httpResponse.getEntity().getContent().close();

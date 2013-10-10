@@ -15,8 +15,10 @@ public class AppWeatherData {
     private Double[] mHourlyPrecipPercent;
     private Double[] mDailyHighTemp;
     private Double[] mDailyLowTemp;
-    private Long[] mDayOfTheWeek;
+    private String mDayOfTheWeek;
     private String mRefreshTime;
+    private String mDailyHiTemp;
+    private String mDailyLoTemp;
 
     public String getmRefreshTime() {
         return mRefreshTime;
@@ -98,7 +100,13 @@ public class AppWeatherData {
         return mDailyHighTemp.toString();
     }
 
+    public String getmDailyHiTemp() {
+        return mDailyHiTemp;
+    }
 
+    public void setmDailyHiTemp(String mDailyHiTemp) {
+        this.mDailyHiTemp = mDailyHiTemp;
+    }
 
     public Double[] getmDailyLowTemp() {
         return mDailyLowTemp;
@@ -108,11 +116,21 @@ public class AppWeatherData {
         this.mDailyLowTemp = mDailyLowTemp;
     }
 
-    public Long[] getmDayOfTheWeek() {
+    public String getmDailyLoTemp() {
+        return mDailyLoTemp;
+    }
+
+    public void setmDailyLoTemp(String mDailyLoTemp) {
+        this.mDailyLoTemp = mDailyLoTemp;
+    }
+
+    public String getmDayOfTheWeek() {
         return mDayOfTheWeek;
     }
 
-    public void setmDayOfTheWeek(Long[] mDayOfTheWeek) {
+    public void setmDayOfTheWeek(String mDayOfTheWeek) {
         this.mDayOfTheWeek = mDayOfTheWeek;
     }
+
+
 }

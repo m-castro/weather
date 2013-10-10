@@ -15,7 +15,6 @@ public class DisplayWeatherActivity extends Activity {
     public PopulateDataTask myFriendPopulateDataTask;
     public UserLocationManager mMyPersonalLocationManager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +22,6 @@ public class DisplayWeatherActivity extends Activity {
         Log.e("look","it runs");
         goGetWeatherData();
     }
-
 
 //    private void updateDisplay(){
 ////        check to see if we have some weather data, and
@@ -56,7 +54,6 @@ public class DisplayWeatherActivity extends Activity {
     public void goGetWeatherData(){
         Log.e("Look", "Step 1 works");
         myFriendPopulateDataTask = new PopulateDataTask(this);
-
     }
 
     //
@@ -72,10 +69,6 @@ public class DisplayWeatherActivity extends Activity {
 //    Data type = AppWeatherDate; name can be whatever, but make sure it matches the name when it is called,
 //    for example, like it is in log below.
 
-//    9/8/13: trying to figure out how to get date/time data from JSON
-//      public Date (long date){
-//          System.currentTimeMillis()
-//      }
 
 //    Step 8
       public void receiveWeatherData(AppWeatherData myData){
@@ -91,14 +84,15 @@ public class DisplayWeatherActivity extends Activity {
           TextView textViewUpdatedTimeDisplay = (TextView) findViewById(R.id.updatedDateTime);
           textViewUpdatedTimeDisplay.setText(myData.getmRefreshTime());
 
-          TextView textviewFirstDayofWeek = (TextView) findViewById(R.id.firstDayWeekly);
-//          textviewFirstDayofWeek.setText(myData.getmDailyHighTemp());
+          TextView textviewFifthDayofWeek = (TextView) findViewById(R.id.fifthDayWeekly);
+          textviewFifthDayofWeek.setText(myData.getmDayOfTheWeek());
 
+          TextView textviewFifthDayHighTemp = (TextView) findViewById(R.id.fifthDayHigh);
+          textviewFifthDayHighTemp.setText(myData.getmDailyHiTemp());
 
+          TextView textviewFifthDayLowTemp = (TextView) findViewById(R.id.fifthDayLow);
+          textviewFifthDayLowTemp.setText(myData.getmDailyLoTemp());
 
-
-//          TextView textViewTime = (TextView) findViewById(R.id.updatedDateTime);
-//          textViewTime.setText(myData.getmRefreshTimeString());
 
 //    public void receiveWeatherData(AppWeatherData myDataObject){
 //    public void receiveWeatherData(){
@@ -106,7 +100,6 @@ public class DisplayWeatherActivity extends Activity {
 
 //        I got weather data, now do something with it
 //            updateDisplay();  //update the display to show the new info
-
     }
 
     @Override

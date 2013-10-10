@@ -3,6 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                android:background="@drawable/gradient"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
@@ -34,7 +35,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/currentTempFromJSON"
             android:text="Temp"
-            android:textSize="20dp"
+            android:textSize="30dp"
             android:textColor="#0000ff"
             android:layout_below="@id/cityName"/>
 
@@ -51,7 +52,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/percentPrecipFromJSON"
             android:text="% precip"
-            android:textSize="20dp"
+            android:textSize="30dp"
             android:textColor="#0000ff"
             android:layout_below="@id/cityName"
             android:layout_alignParentRight="true"/>
@@ -97,7 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#FFD700">
+            android:background="@drawable/daily_odd_row_gradient">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -162,7 +163,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#FFD700">
+            android:background="@drawable/daily_odd_row_gradient">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -226,7 +227,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="#FFD700">
+            android:background="@drawable/daily_odd_row_gradient">
 
             <TextView
                 android:layout_width="wrap_content"
