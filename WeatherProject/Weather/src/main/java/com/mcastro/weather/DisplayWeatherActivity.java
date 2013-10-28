@@ -1,11 +1,14 @@
 package com.mcastro.weather;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.widget.TextView;
 //The main activity that we will be using to display weather data
 
@@ -92,6 +95,16 @@ public class DisplayWeatherActivity extends Activity {
 
           TextView textviewFifthDayLowTemp = (TextView) findViewById(R.id.fifthDayLow);
           textviewFifthDayLowTemp.setText(myData.getmDailyLoTemp());
+
+          TextView textViewLaunchHourlyData = (TextView) findViewById(R.id.detailedHourlyInfo);
+          textViewLaunchHourlyData.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View view) {
+                  Intent i = new Intent(getApplicationContext(),Hourly.class);
+                  startActivity(i);
+                  finish();
+              }
+          });
 
 
 //    public void receiveWeatherData(AppWeatherData myDataObject){

@@ -19,6 +19,7 @@ import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -71,25 +72,51 @@ public class PopulateDataTask extends AsyncTask<ForecastAPIRequestObject, Intege
                 JSONObject rootJSON = new JSONObject(responseString);
                 JSONObject currentlyJSON = rootJSON.getJSONObject("currently");
 
-////            9/9/13: Getting hourly temp and hourly precip %
+
+
+//                10/21/13: hashmap example for hourly data
+                // Hashmap for ListView
+//                ArrayList<HashMap<String, String>> contactList = new ArrayList<HashMap<String, String>>();
+//                JSONObject hourlyJSON1 = rootJSON.getJSONObject("hourly");
+//                JSONArray hourlyJSONdata1 = hourlyJSON1.getJSONArray("data");
+//                for (int w = 0; w < hourlyJSONdata1.length(); w++){
+//                    String value1 = String.valueOf(hourlyJSONdata1.getJSONObject(w).getLong("time"));
+//                    String name1 = String.valueOf(hourlyJSONdata1.getJSONObject(w));
+////                            String.valueOf(BigDecimal.valueOf(name.getDouble("temperature")).setScale(0, RoundingMode.HALF_UP))
+//                // creating new HashMap
+//                HashMap<String, String> map = new HashMap<String, String>();
+//                map.put(value1, name1);
+//                contactList.add(map);
+//                Log.e("10/21/13 test - PopulateDataTask hourly temp", value1);
+//                Log.e("10/21/13 test - PopulateDataTask hourly temp", name1);
+//                }
+//                10/21/13: Set up ArrayList next time I work on this project
+
+
+//            9/9/13: Getting hourly temp and hourly precip %
                 JSONObject hourlyJSON = rootJSON.getJSONObject("hourly");
                 JSONArray hourlyJSONdata = hourlyJSON.getJSONArray("data");
 
 //              9/9/13: Using an hourly hashmap to pull hourly data
-                HashMap<Long, JSONObject> hourlyHashMap = new HashMap<Long, JSONObject>();
+                HashMap<String, JSONObject> hourlyHashMap = new HashMap<String, JSONObject>();
 
                 for (int i = 0; i < hourlyJSONdata.length(); i++){
-                    Long value = hourlyJSONdata.getJSONObject(i).getLong("time");
+                    Long hourlyTime = hourlyJSONdata.getJSONObject(i).getLong("time");
                     JSONObject name = hourlyJSONdata.getJSONObject(i);
-                    hourlyHashMap.put(value, name);
                     Double HourlyTemperature = name.getDouble("temperature");
+                    Date dailyDate = new Date(hourlyTime * 1000);
+                    DateFormat dailyDateDisplay = new SimpleDateFormat("h a");
+                    String value = dailyDateDisplay.format(dailyDate);
+                    hourlyHashMap.put(value, name);
 //                    Rounding of temperature to nearest degree (no decimals)
                     Log.e("PopulateDataTask rounding of hourly temp", String.valueOf(BigDecimal.valueOf(HourlyTemperature).setScale(0, RoundingMode.HALF_UP)));
+                    Log.e("PopulateDataTask hourly temp", value);
                     Log.e("PopulateDataTask hourly temp", HourlyTemperature.toString());
                 }
+
 ////            9/9/13: End of hourly hashmap
 
-//              9/13/13: Trying to use a daily hashmap to pull daily data
+//              9/13/13: Use a daily hashmap to pull daily data
                 Log.e("look", rootJSON.toString());
                 JSONObject dailyJSON = rootJSON.getJSONObject("daily");
                 Log.e("look", dailyJSON.toString());
@@ -126,6 +153,8 @@ public class PopulateDataTask extends AsyncTask<ForecastAPIRequestObject, Intege
 
                 }
 //              9/9/13: End of daily hashmap
+
+
 
 //              9/9/13: Start parsing JSON data for daily weather info that will go on Main Activity
 //                      (DisplayWeatherActivity.java)
